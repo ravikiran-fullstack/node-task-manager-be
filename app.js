@@ -3,6 +3,8 @@ const app = express();
 const tasksRouter = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
+const notFound = require("./middleware/notFound");
+const errorHandlerMiddleware = require("./middleware/errorHandler");
 
 // middleware
 app.use(express.static("./public"));
@@ -14,6 +16,9 @@ app.use(express.json());
 // });
 
 app.use("/api/v1/tasks", tasksRouter);
+
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const PORT = 3200;
 
